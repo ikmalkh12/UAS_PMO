@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="btnCompleted" type="id" />
+    <item name="taskList" type="id" />
+    <item name="fab" type="id" />
+    <item name="taskNameInput" type="id" />
+    <item name="taskDescInput" type="id" />
+    <item name="taskDoneCheck" type="id" />
+    <item name="btnSave" type="id" />
+    <item name="btnDelete" type="id" />
+    <item name="taskDetailStatusCheck" type="id" />
+    <item name="taskDetailDesc" type="id" />
+    <item name="taskDetailName" type="id" />
+</resources>

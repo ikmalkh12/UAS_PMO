@@ -2,7 +2,7 @@ package com.example.uts;
 
 import android.content.Intent;
 import android.os.Bundle;
-
+import com.example.uts.R;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -23,26 +23,31 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
 
         bottomNav.setOnItemSelectedListener(item -> {
-            Fragment fragment = null;
-            switch (item.getItemId()) {
-                case R.id.nav_tasks:
-                    fragment = new TaskListFragment();
-                    break;
-                case R.id.nav_add:
-                    fragment = new AddProjectFragment();
-                    break;
-                case R.id.nav_dashboard:
-                    fragment = new DashboardFragment();
-                    break;
+            int itemId = item.getItemId();
+            Fragment fragment;
+
+            if (itemId == R.id.nav_tasks) {
+                fragment = new TaskListFragment();
+            } else if (itemId == R.id.nav_add) {
+                fragment = new AddProjectFragment();
+            } else if (itemId == R.id.nav_dashboard) {
+                fragment = new DashboardFragment();
+            } else {
+                fragment = null;
             }
-            if (fragment != null) loadFragment(fragment);
-            return true;
+
+            if (fragment != null) {
+                loadFragment(fragment);
+                return true;
+            }
+            return false;
         });
 
+
+        // Pindah ke login jika belum login
         if (loggedInUserId == -1) {
-            Intent loginIntent = new Intent(this, LoginActivity.class);
-            startActivity(loginIntent);
-            finish();
+            startActivity(new Intent(this, LoginActivity.class));
+            finish(); // supaya tidak kembali ke sini
         } else {
             loadFragment(new DashboardFragment());
         }

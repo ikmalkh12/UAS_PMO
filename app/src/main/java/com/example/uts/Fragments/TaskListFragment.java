@@ -1,7 +1,6 @@
 package com.example.uts.Fragments;
 
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,36 +12,44 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.uts.AppDatabase;
-import com.example.uts.Task;
+import com.example.uts.MainActivity;
 import com.example.uts.R;
+import com.example.uts.Task;
 import com.example.uts.TaskAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TaskListFragment extends Fragment {
+
+    private List<Task> taskList = new ArrayList<>();
+    private TaskAdapter taskAdapter;
     private RecyclerView recyclerView;
-    private TaskAdapter adapter;
-    private AppDatabase db;
-    private List<Task> userTasks;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_task_list, container, false);
 
-        recyclerView = view.findViewById(R.id.taskRecyclerView);
+        recyclerView = view.findViewById(R.id.taskList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        db = AppDatabase.getInstance(getContext());
-        int userId = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt("user_id", -1);
-        userTasks = db.taskDao().getTasksByUser(userId);
+        taskAdapter = new TaskAdapter(taskList);
+        recyclerView.setAdapter(taskAdapter);
 
-        adapter = new TaskAdapter(userTasks);
-        recyclerView.setAdapter(adapter);
+        loadTasks();
 
         return view;
     }
+
+    private void loadTasks() {
+        AppDatabase db = AppDatabase.getInstance(getContext());
+        List<Task> userTasks = db.taskDao().getTasksByUser(MainActivity.loggedInUserId);
+
+        taskList.clear();
+        taskList.addAll(userTasks);
+        taskAdapter.notifyDataSetChanged();
+    }
 }
-
-

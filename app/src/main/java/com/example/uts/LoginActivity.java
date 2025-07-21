@@ -1,5 +1,7 @@
 package com.example.uts;
 
+
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -9,8 +11,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
-    private EditText etUsername;
-    private Button btnLogin;
+
+    private EditText etUsername, etPassword;
+    private Button btnLogin, btnToRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,26 +21,34 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         etUsername = findViewById(R.id.etUsername);
+        etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
+        btnToRegister = findViewById(R.id.btnToRegister);
 
         btnLogin.setOnClickListener(v -> {
             String username = etUsername.getText().toString().trim();
-            if (username.isEmpty()) {
-                Toast.makeText(this, "Masukkan nama pengguna", Toast.LENGTH_SHORT).show();
+            String password = etPassword.getText().toString().trim();
+
+            if (username.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Isi username dan password", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             AppDatabase db = AppDatabase.getInstance(this);
             User user = db.userDao().getUserByUsername(username);
 
-            if (user == null) {
-                user = new User(username);
-                db.userDao().insert(user);
+            if (user == null || !user.password.equals(password)) {
+                Toast.makeText(this, "Username atau password salah", Toast.LENGTH_SHORT).show();
+            } else {
+                MainActivity.loggedInUserId = user.id;
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
             }
-
-            Session.setCurrentUser(user);
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
         });
+
+        btnToRegister.setOnClickListener(v -> {
+            startActivity(new Intent(this, RegisterActivity.class));
+        });
+
     }
 }

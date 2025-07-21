@@ -16,6 +16,7 @@ public interface TaskDao {
     @Query("SELECT * FROM Task WHERE userId = :userId")
     List<Task> getTasksByUser(int userId);
 
+
     // (opsional) tambahan lain jika kamu pakai update/delete:
     @Update
     void update(Task task);

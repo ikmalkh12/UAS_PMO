@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -37,7 +38,7 @@ public class AddProjectFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_project, container, false);
 
-        // Inisialisasi komponen sesuai dengan ID XML
+        // Inisialisasi komponen
         namaTask = view.findViewById(R.id.namaTask);
         deskTask = view.findViewById(R.id.deskTask);
         etTanggal = view.findViewById(R.id.etTanggal);
@@ -47,11 +48,15 @@ public class AddProjectFragment extends Fragment {
         backButton = view.findViewById(R.id.imageButton);
         notifButton = view.findViewById(R.id.imageButton2);
 
-        // Listener untuk memilih tanggal
+        // Isi spinner
+        String[] kategori = {"Work", "Personal", "Study"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_dropdown_item, kategori);
+        spinner.setAdapter(adapter);
+
+        // DatePicker
         etTanggal.setOnClickListener(v -> showDatePicker(etTanggal));
         endTanggal.setOnClickListener(v -> showDatePicker(endTanggal));
 
-        // Tombol Add Project
         addButton.setOnClickListener(v -> {
             String name = namaTask.getText().toString().trim();
             String desc = deskTask.getText().toString().trim();
@@ -64,36 +69,32 @@ public class AddProjectFragment extends Fragment {
                 return;
             }
 
-            Task task = new Task(name, desc, start, end, category, false, MainActivity.loggedInUserId);
+            Task task = new Task(
+                    MainActivity.loggedInUserId,
+                    name, desc, start, end, category, false
+            );
             AppDatabase.getInstance(getContext()).taskDao().insert(task);
+
             Toast.makeText(getContext(), "Project berhasil ditambahkan", Toast.LENGTH_SHORT).show();
 
-            // Kosongkan input setelah ditambahkan
+            // Kosongkan
             namaTask.setText("");
             deskTask.setText("");
             etTanggal.setText("");
             endTanggal.setText("");
         });
 
-        // Tombol kembali (dummy)
         backButton.setOnClickListener(v -> requireActivity().onBackPressed());
-
-        // Tombol notifikasi (dummy)
         notifButton.setOnClickListener(v -> Toast.makeText(getContext(), "Notifikasi belum tersedia", Toast.LENGTH_SHORT).show());
 
         return view;
     }
 
     private void showDatePicker(EditText field) {
-        final Calendar calendar = Calendar.getInstance();
-        DatePickerDialog dialog = new DatePickerDialog(requireContext(),
-                (view, year, month, dayOfMonth) -> {
-                    String formattedDate = dayOfMonth + "/" + (month + 1) + "/" + year;
-                    field.setText(formattedDate);
-                },
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH));
-        dialog.show();
+        Calendar calendar = Calendar.getInstance();
+        new DatePickerDialog(requireContext(), (view, year, month, dayOfMonth) -> {
+            String formatted = dayOfMonth + "/" + (month + 1) + "/" + year;
+            field.setText(formatted);
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 }

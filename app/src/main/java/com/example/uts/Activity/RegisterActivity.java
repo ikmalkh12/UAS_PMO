@@ -1,4 +1,4 @@
-package com.example.uts;
+package com.example.uts.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.uts.Database.AppDatabase;
+import com.example.uts.R;
+import com.example.uts.User;
 
 public class RegisterActivity extends AppCompatActivity {
 

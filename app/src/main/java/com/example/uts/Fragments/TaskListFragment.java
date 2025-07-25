@@ -11,8 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.uts.AppDatabase;
-import com.example.uts.MainActivity;
+import com.example.uts.Database.AppDatabase;
+import com.example.uts.Activity.MainActivity;
 import com.example.uts.R;
 import com.example.uts.Task;
 import com.example.uts.TaskAdapter;

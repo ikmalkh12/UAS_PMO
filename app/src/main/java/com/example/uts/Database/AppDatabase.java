@@ -1,7 +1,4 @@
-package com.example.uts;
-
-import static com.example.uts.MainActivity.loggedInUserId;
-import static java.security.AccessController.getContext;
+package com.example.uts.Database;
 
 import android.content.Context;
 
@@ -9,9 +6,13 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import java.util.List;
+import com.example.uts.Task;
+import com.example.uts.TaskDao;
+import com.example.uts.User;
+import com.example.uts.UserDao;
 
-@Database(entities = {User.class, Task.class}, version = 1)
+@Database(entities = {User.class, Task.class}, version = 2, exportSchema = false)
+
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase instance;

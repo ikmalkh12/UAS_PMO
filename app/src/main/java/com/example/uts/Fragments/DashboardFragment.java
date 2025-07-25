@@ -4,124 +4,74 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Button;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.uts.AppDatabase;
-import com.example.uts.MainActivity;
+import com.example.uts.Database.AppDatabase;
+import com.example.uts.views.CircleChartView;
 import com.example.uts.R;
+import com.example.uts.SessionManager;
 import com.example.uts.Task;
+import com.example.uts.TaskDao;
 import com.example.uts.User;
+import com.example.uts.UserDao;
 
 import java.util.List;
 
 public class DashboardFragment extends Fragment {
 
-    private TextView tvGreeting, progressText;
-    private ProgressBar dailyProgress;
-    private TextView workProgress, personalProgress, studyProgress;
-    private TextView workTaskCount, personalTaskCount, studyTaskCount;
+    private TextView tvGreeting, taskRatio, progressText;
+    private CircleChartView circleChart;
 
-    private  TextView tvTaskMessage;
+    private AppDatabase db;
+    private TaskDao taskDao;
+    private UserDao userDao;
 
-    @Nullable
+    private int userId;
+
+    public DashboardFragment() {}
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
         tvGreeting = view.findViewById(R.id.tvGreeting);
         progressText = view.findViewById(R.id.progressText);
-        dailyProgress = view.findViewById(R.id.dailyProgress);
+        taskRatio = view.findViewById(R.id.taskRatio);
+        circleChart = view.findViewById(R.id.circleChart);
 
-        workProgress = view.findViewById(R.id.workProgress);
-        personalProgress = view.findViewById(R.id.personalProgress);
-        studyProgress = view.findViewById(R.id.studyProgress);
+        db = AppDatabase.getInstance(getContext());
+        taskDao = db.taskDao();
+        userDao = db.userDao();
 
-        workTaskCount = view.findViewById(R.id.workTaskCount);
-        personalTaskCount = view.findViewById(R.id.personalTaskCount);
-        studyTaskCount = view.findViewById(R.id.studyTaskCount);
+        SessionManager sessionManager = new SessionManager(requireContext());
+        userId = sessionManager.getLoggedInUserId();
 
-        // Greeting
-        User user = AppDatabase.getInstance(getContext()).userDao().getUserById(MainActivity.loggedInUserId);
-        if (user != null) {
-            tvGreeting.setText("Hello!\n" + user.username);
-        }
-
-        // View Task Button
-        Button viewTasksButton = view.findViewById(R.id.viewTasksButton);
-        viewTasksButton.setOnClickListener(v -> requireActivity()
-                .getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, new TaskListFragment())
-                .commit());
-
-        calculateProgress();
+        loadDashboardData();
 
         return view;
     }
 
-    private void calculateProgress() {
-        List<Task> tasks = AppDatabase.getInstance(getContext())
-                .taskDao()
-                .getTasksByUser(MainActivity.loggedInUserId);
+    private void loadDashboardData() {
+        new Thread(() -> {
+            List<Task> tasks = taskDao.getTasksByUser(userId);
+            User user = userDao.getUserById(userId);
 
-        int total = tasks.size();
-        int completed = 0;
-
-        int workTotal = 0, workCompleted = 0;
-        int personalTotal = 0, personalCompleted = 0;
-        int studyTotal = 0, studyCompleted = 0;
-
-        for (Task task : tasks) {
-            if (task.isCompleted()) completed++;
-
-            switch (task.getCategory().toLowerCase()) {
-                case "work":
-                    workTotal++;
-                    if (task.isCompleted()) workCompleted++;
-                    break;
-                case "personal":
-                    personalTotal++;
-                    if (task.isCompleted()) personalCompleted++;
-                    break;
-                case "study":
-                    studyTotal++;
-                    if (task.isCompleted()) studyCompleted++;
-                    break;
+            int total = tasks.size();
+            int done = 0;
+            for (Task t : tasks) {
+                if (t.isCompleted()) done++;
             }
-        }
 
-        // Update UI
-        int percent = total > 0 ? (completed * 100 / total) : 0;
-        dailyProgress.setProgress(percent);
-        progressText.setText(percent + "%");
+            int percentage = total == 0 ? 0 : (int) ((done * 100f) / total);
+            String ratio = done + "/" + total + " tasks done";
 
-        workProgress.setText(workTotal > 0 ? (workCompleted * 100 / workTotal) + "%" : "0%");
-        personalProgress.setText(personalTotal > 0 ? (personalCompleted * 100 / personalTotal) + "%" : "0%");
-        studyProgress.setText(studyTotal > 0 ? (studyCompleted * 100 / studyTotal) + "%" : "0%");
-
-        workTaskCount.setText(workTotal + " Tasks");
-        personalTaskCount.setText(personalTotal + " Tasks");
-        studyTaskCount.setText(studyTotal + " Tasks");
-        tvTaskMessage = getView().findViewById(R.id.tvTaskMessage);
-        if (percent == 100) {
-            tvTaskMessage.setText("Your work is done, congrats!!");
-        } else if (percent >= 75) {
-            tvTaskMessage.setText("Almost done, finish strong!");
-        } else if (percent >= 50) {
-            tvTaskMessage.setText("More than halfway there!");
-        } else if (percent >= 25) {
-            tvTaskMessage.setText("Making progress, keep going!");
-        } else {
-            tvTaskMessage.setText("Just getting started!");
-        }
+            requireActivity().runOnUiThread(() -> {
+                tvGreeting.setText("Hi, " + user.getUsername());
+                taskRatio.setText(ratio);
+                progressText.setText(percentage + "%");
+                circleChart.setProgress(percentage);
+            });
+        }).start();
     }
 }
-

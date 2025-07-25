@@ -11,7 +11,7 @@ public class  SessionManager {
     private static SessionManager instance;
     private SharedPreferences prefs;
 
-    private SessionManager(Context context) {
+    public SessionManager(Context context) {
         prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 

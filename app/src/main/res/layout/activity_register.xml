@@ -3,34 +3,60 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
     android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:gravity="center"
+    android:padding="24dp"
+    android:background="?android:attr/windowBackground">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Daftar Akun"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_marginBottom="32dp" />
 
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Username" />
+        android:hint="Username"
+        android:background="@drawable/card_bg"
+        android:padding="12dp"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textColorHint="#888888"
+        android:layout_marginBottom="12dp" />
 
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:background="@drawable/card_bg"
+        android:padding="12dp"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textColorHint="#888888"
+        android:layout_marginBottom="12dp" />
 
     <EditText
         android:id="@+id/etConfirmPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Konfirmasi Password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:background="@drawable/card_bg"
+        android:padding="12dp"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textColorHint="#888888"
+        android:layout_marginBottom="20dp" />
 
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Daftar"
-        android:layout_marginTop="16dp"/>
+        android:backgroundTint="#4CAF50"
+        android:textColor="@android:color/white" />
 </LinearLayout>

@@ -1,6 +1,4 @@
-package com.example.uts;
-
-
+package com.example.uts.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +7,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.uts.Database.AppDatabase;
+import com.example.uts.R;
+import com.example.uts.User;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -40,8 +42,9 @@ public class LoginActivity extends AppCompatActivity {
             if (user == null || !user.password.equals(password)) {
                 Toast.makeText(this, "Username atau password salah", Toast.LENGTH_SHORT).show();
             } else {
-                MainActivity.loggedInUserId = user.id;
-                startActivity(new Intent(this, MainActivity.class));
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.putExtra("userId", user.id);  // ⬅️ Kirim userId
+                startActivity(intent);
                 finish();
             }
         });
@@ -49,6 +52,5 @@ public class LoginActivity extends AppCompatActivity {
         btnToRegister.setOnClickListener(v -> {
             startActivity(new Intent(this, RegisterActivity.class));
         });
-
     }
 }

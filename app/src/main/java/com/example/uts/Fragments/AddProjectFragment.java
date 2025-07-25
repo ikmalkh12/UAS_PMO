@@ -17,8 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.uts.AppDatabase;
-import com.example.uts.MainActivity;
+import com.example.uts.Database.AppDatabase;
+import com.example.uts.Activity.MainActivity;
 import com.example.uts.R;
 import com.example.uts.Task;
 import com.google.android.material.textfield.TextInputEditText;

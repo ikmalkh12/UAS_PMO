@@ -1,14 +1,14 @@
-package com.example.uts;
+package com.example.uts.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import com.example.uts.R;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.uts.Fragments.AddProjectFragment;
 import com.example.uts.Fragments.DashboardFragment;
 import com.example.uts.Fragments.TaskListFragment;
+import com.example.uts.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,6 +19,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Ambil userId dari Intent
+        if (getIntent() != null && getIntent().hasExtra("userId")) {
+            loggedInUserId = getIntent().getIntExtra("userId", -1);
+        }
+
+        if (loggedInUserId == -1) {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            return;
+        }
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
 
@@ -43,14 +54,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
 
-
-        // Pindah ke login jika belum login
-        if (loggedInUserId == -1) {
-            startActivity(new Intent(this, LoginActivity.class));
-            finish(); // supaya tidak kembali ke sini
-        } else {
-            loadFragment(new DashboardFragment());
-        }
+        loadFragment(new DashboardFragment());
     }
 
     private void loadFragment(Fragment fragment) {

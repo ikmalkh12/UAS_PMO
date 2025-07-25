@@ -13,5 +13,5 @@ public interface UserDao {
     User getUserByUsername(String username);
 
     @Query("SELECT * FROM User WHERE id = :id LIMIT 1")
-    User getUserById(int id); // ✅ Tambahkan baris ini
+    User getUserById(int id);  // ⬅️ digunakan di DashboardFragment
 }

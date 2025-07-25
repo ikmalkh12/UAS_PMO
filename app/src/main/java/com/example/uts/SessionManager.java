@@ -3,7 +3,7 @@ package com.example.uts;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class SessionManager {
+public class  SessionManager {
 
     private static final String PREF_NAME = "login_pref";
     private static final String KEY_USER_ID = "user_id";

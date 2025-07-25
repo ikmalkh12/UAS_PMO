@@ -1,5 +1,7 @@
 package com.example.uts;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
     public static class TaskViewHolder extends RecyclerView.ViewHolder {
         TextView taskTitle, taskDesc, taskTime;
+
 
         public TaskViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -42,7 +45,16 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         holder.taskTitle.setText(task.getName());
         holder.taskDesc.setText(task.getCategory());
         holder.taskTime.setText(task.getStartDate());
+        holder.itemView.setOnClickListener(v -> {
+            Context context = holder.itemView.getContext();
+            Intent intent = new Intent(context, TaskDetailActivity.class);
+            intent.putExtra("taskId", task.getId());
+            context.startActivity(intent);
+        });
+
+
     }
+
 
     @Override
     public int getItemCount() {

@@ -27,6 +27,8 @@ public class DashboardFragment extends Fragment {
     private TextView workProgress, personalProgress, studyProgress;
     private TextView workTaskCount, personalTaskCount, studyTaskCount;
 
+    private  TextView tvTaskMessage;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -108,5 +110,18 @@ public class DashboardFragment extends Fragment {
         workTaskCount.setText(workTotal + " Tasks");
         personalTaskCount.setText(personalTotal + " Tasks");
         studyTaskCount.setText(studyTotal + " Tasks");
+        tvTaskMessage = getView().findViewById(R.id.tvTaskMessage);
+        if (percent == 100) {
+            tvTaskMessage.setText("Your work is done, congrats!!");
+        } else if (percent >= 75) {
+            tvTaskMessage.setText("Almost done, finish strong!");
+        } else if (percent >= 50) {
+            tvTaskMessage.setText("More than halfway there!");
+        } else if (percent >= 25) {
+            tvTaskMessage.setText("Making progress, keep going!");
+        } else {
+            tvTaskMessage.setText("Just getting started!");
+        }
     }
 }
+

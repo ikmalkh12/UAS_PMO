@@ -12,18 +12,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UTS"
         tools:targetApi="31">
-        <activity android:name=".LoginCheckActivity"
+        <activity
+            android:name=".TaskDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginCheckActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".AddProject" />
-        <activity android:name=".RegisterActivity" />
-        
     </application>
 
 </manifest>

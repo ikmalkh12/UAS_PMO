@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,6 +39,13 @@ public class TaskListFragment extends Fragment {
 
         taskAdapter = new TaskAdapter(taskList);
         recyclerView.setAdapter(taskAdapter);
+
+        // ✅ Tambahkan listener untuk tombol Hapus
+        taskAdapter.setOnTaskDeleteListener(task -> {
+            AppDatabase.getInstance(getContext()).taskDao().delete(task);
+            taskAdapter.removeTask(task);
+            Toast.makeText(getContext(), "Tugas dihapus", Toast.LENGTH_SHORT).show();
+        });
 
         loadTasks();
 

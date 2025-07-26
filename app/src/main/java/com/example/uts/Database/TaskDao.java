@@ -11,7 +11,8 @@ import java.util.List;
 @Dao
 public interface TaskDao {
     @Insert
-    void insert(Task task);
+    long insert(Task task); // return ID hasil insert
+
 
     @Query("SELECT * FROM Task WHERE userId = :userId")
     List<Task> getTasksByUser(int userId);
@@ -20,7 +21,7 @@ public interface TaskDao {
     Task getTaskById(int id);
 
 
-    // (opsional) tambahan lain jika kamu pakai update/delete:
+    // (opsional)
     @Update
     void update(Task task);
 

@@ -1,6 +1,7 @@
 package com.example.uts.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(this, "Username atau password salah", Toast.LENGTH_SHORT).show();
             } else {
                 Intent intent = new Intent(this, MainActivity.class);
-                intent.putExtra("userId", user.id);  // ⬅️ Kirim userId
+                intent.putExtra("userId", user.id);
                 startActivity(intent);
                 finish();
             }

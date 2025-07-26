@@ -1,10 +1,8 @@
-package com.example.uts.Adapter;
+package com.example.uts.Database;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
-
-import com.example.uts.Database.User;
 
 @Dao
 public interface UserDao {

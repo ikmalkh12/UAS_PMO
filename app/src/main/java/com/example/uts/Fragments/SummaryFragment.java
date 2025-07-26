@@ -14,7 +14,7 @@ import com.example.uts.R;
 import com.example.uts.Database.Task;
 import com.example.uts.Database.TaskDao;
 import com.example.uts.Database.User;
-import com.example.uts.Adapter.UserDao;
+import com.example.uts.Database.UserDao;
 
 import java.util.List;
 

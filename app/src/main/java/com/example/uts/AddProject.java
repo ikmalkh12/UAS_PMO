@@ -37,8 +37,6 @@ public class AddProject extends AppCompatActivity {
         etTanggal = findViewById(R.id.etTanggal);
         endTanggal = findViewById(R.id.endTanggal);
         buttonAddProject = findViewById(R.id.button3);
-        backButton = findViewById(R.id.imageButton);
-        notifButton = findViewById(R.id.imageButton2);
         headerTitle = findViewById(R.id.textView3);
 
         // Spinner setup

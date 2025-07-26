@@ -7,39 +7,22 @@
     android:padding="16dp">
 
     <!-- Tombol Navigasi dan Notifikasi -->
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:rotation="-90"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        app:srcCompat="@android:drawable/arrow_up_float"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        app:srcCompat="@android:drawable/stat_notify_chat"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Judul -->
+
+    <!-- Spinner Task Group -->
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tambah Project"
+        android:text="Tambah Task"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/imageButton"
-        app:layout_constraintEnd_toStartOf="@id/imageButton2"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Spinner Task Group -->
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="0dp"
@@ -74,7 +57,7 @@
             android:id="@+id/namaTask"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Masukkan nama project"
+            android:hint="Masukkan Nama Task"
             android:textSize="16sp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -101,7 +84,7 @@
             android:id="@+id/deskTask"
             android:layout_width="match_parent"
             android:layout_height="96dp"
-            android:hint="Masukkan deskripsi project"
+            android:hint="Masukkan Deskripsi Task"
             android:textSize="16sp"
             android:gravity="start|top"
             android:inputType="textMultiLine"
@@ -113,7 +96,7 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start Date"
+        android:text="Tanggal Mulai"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="16dp"/>
@@ -135,7 +118,7 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="End Date"
+        android:text="Tanggal Selesai"
         app:layout_constraintTop_toBottomOf="@+id/etTanggal"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="16dp"/>

@@ -9,6 +9,7 @@ import com.example.uts.Fragments.AddProjectFragment;
 import com.example.uts.Fragments.DashboardFragment;
 import com.example.uts.Fragments.TaskListFragment;
 import com.example.uts.R;
+import com.example.uts.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -56,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
 
         loadFragment(new DashboardFragment());
     }
+
+
+
 
     private void loadFragment(Fragment fragment) {
         getSupportFragmentManager()

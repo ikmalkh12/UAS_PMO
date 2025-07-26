@@ -9,29 +9,24 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.example.uts.Database.AppDatabase;
 import com.example.uts.Activity.MainActivity;
 import com.example.uts.R;
 import com.example.uts.Task;
 import com.google.android.material.textfield.TextInputEditText;
-
 import java.util.Calendar;
+import java.util.Objects;
 
 public class AddProjectFragment extends Fragment {
 
     private TextInputEditText namaTask, deskTask;
     private EditText etTanggal, endTanggal;
     private Spinner spinner;
-    private Button addButton;
-    private ImageButton backButton, notifButton;
 
     @Nullable
     @Override
@@ -44,9 +39,8 @@ public class AddProjectFragment extends Fragment {
         etTanggal = view.findViewById(R.id.etTanggal);
         endTanggal = view.findViewById(R.id.endTanggal);
         spinner = view.findViewById(R.id.spinner);
-        addButton = view.findViewById(R.id.button3);
-        backButton = view.findViewById(R.id.imageButton);
-        notifButton = view.findViewById(R.id.imageButton2);
+        Button addButton = view.findViewById(R.id.button3);
+
 
         // Isi spinner
         String[] kategori = {"Work", "Personal", "Study"};
@@ -58,8 +52,8 @@ public class AddProjectFragment extends Fragment {
         endTanggal.setOnClickListener(v -> showDatePicker(endTanggal));
 
         addButton.setOnClickListener(v -> {
-            String name = namaTask.getText().toString().trim();
-            String desc = deskTask.getText().toString().trim();
+            String name = Objects.requireNonNull(namaTask.getText()).toString().trim();
+            String desc = Objects.requireNonNull(deskTask.getText()).toString().trim();
             String start = etTanggal.getText().toString().trim();
             String end = endTanggal.getText().toString().trim();
             String category = spinner.getSelectedItem().toString();
@@ -83,9 +77,6 @@ public class AddProjectFragment extends Fragment {
             etTanggal.setText("");
             endTanggal.setText("");
         });
-
-        backButton.setOnClickListener(v -> requireActivity().onBackPressed());
-        notifButton.setOnClickListener(v -> Toast.makeText(getContext(), "Notifikasi belum tersedia", Toast.LENGTH_SHORT).show());
 
         return view;
     }

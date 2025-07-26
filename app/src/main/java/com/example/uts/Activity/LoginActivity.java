@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.uts.Database.AppDatabase;
 import com.example.uts.R;
-import com.example.uts.User;
+import com.example.uts.Database.User;
 
 public class LoginActivity extends AppCompatActivity {
 

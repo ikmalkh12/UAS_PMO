@@ -1,7 +1,6 @@
 package com.example.uts.Fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +11,14 @@ import com.example.uts.Activity.MainActivity;
 import com.example.uts.Database.AppDatabase;
 import com.example.uts.views.CircleChartView;
 import com.example.uts.R;
-import com.example.uts.Task;
-import com.example.uts.TaskDao;
-import com.example.uts.User;
-import com.example.uts.UserDao;
+import com.example.uts.Database.Task;
+import com.example.uts.Database.TaskDao;
+import com.example.uts.Database.User;
+import com.example.uts.Adapter.UserDao;
 
 import java.util.List;
 
-public class DashboardFragment extends Fragment {
+public class SummaryFragment extends Fragment {
 
     private TextView tvGreeting, taskRatio, progressText;
     private TextView workProgressText, personalProgressText, studyProgressText;
@@ -31,11 +30,11 @@ public class DashboardFragment extends Fragment {
 
     private int userId;
 
-    public DashboardFragment() {}
+    public SummaryFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        View view = inflater.inflate(R.layout.fragment_summary, container, false);
 
         tvGreeting = view.findViewById(R.id.tvGreeting);
         progressText = view.findViewById(R.id.progressText);

@@ -5,11 +5,11 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.uts.Fragments.AddProjectFragment;
 import com.example.uts.Fragments.DashboardFragment;
+import com.example.uts.Fragments.AddProjectFragment;
+import com.example.uts.Fragments.SummaryFragment;
 import com.example.uts.Fragments.TaskListFragment;
 import com.example.uts.R;
-import com.example.uts.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,12 +38,14 @@ public class MainActivity extends AppCompatActivity {
             int itemId = item.getItemId();
             Fragment fragment;
 
-            if (itemId == R.id.nav_tasks) {
+            if (itemId == R.id.nav_dashboard) {
+                fragment = new DashboardFragment();
+            } else if (itemId == R.id.nav_tasks) {
                 fragment = new TaskListFragment();
             } else if (itemId == R.id.nav_add) {
                 fragment = new AddProjectFragment();
-            } else if (itemId == R.id.nav_dashboard) {
-                fragment = new DashboardFragment();
+            } else if (itemId == R.id.nav_summary) {
+                fragment = new SummaryFragment();
             } else {
                 fragment = null;
             }
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
 
-        loadFragment(new DashboardFragment());
+        loadFragment(new SummaryFragment());
     }
 
 

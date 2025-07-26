@@ -1,4 +1,4 @@
-package com.example.uts;
+package com.example.uts.Database;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

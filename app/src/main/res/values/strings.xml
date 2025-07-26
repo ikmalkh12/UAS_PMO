@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">UTS</string>
+    <string name="category_all">All</string>
+    <string name="category_work">Work</string>
+    <string name="category_study">Study</string>
+    <string name="category_personal">Personal</string>
+    <string name="dashboard_title">Today’s Tasks</string>
+    <string name="dashboard_task_list">List of tasks in dashboard</string>
+    <string name="date_selector">Task date selector</string>
+
+
 </resources>

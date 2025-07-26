@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.uts.Database.AppDatabase;
 import com.example.uts.Activity.MainActivity;
 import com.example.uts.R;
-import com.example.uts.Task;
-import com.example.uts.TaskAdapter;
+import com.example.uts.Database.Task;
+import com.example.uts.Adapter.TaskAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

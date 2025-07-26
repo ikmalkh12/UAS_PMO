@@ -1,4 +1,4 @@
-package com.example.uts;
+package com.example.uts.Database;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

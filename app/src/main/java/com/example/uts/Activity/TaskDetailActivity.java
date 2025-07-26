@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.uts.Database.AppDatabase;
 import com.example.uts.R;
-import com.example.uts.Task;
+import com.example.uts.Database.Task;
 
 public class TaskDetailActivity extends AppCompatActivity {
 
@@ -46,7 +46,7 @@ public class TaskDetailActivity extends AppCompatActivity {
 
         db = AppDatabase.getInstance(this);
 
-        int taskId = getIntent().getIntExtra("taskId", -1);
+        int taskId = getIntent().getIntExtra("TASK_ID", -1);
         if (taskId != -1) {
             currentTask = db.taskDao().getTaskById(taskId);
             if (currentTask != null) {

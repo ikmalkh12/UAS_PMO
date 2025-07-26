@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment;
 import com.example.uts.Database.AppDatabase;
 import com.example.uts.Activity.MainActivity;
 import com.example.uts.R;
-import com.example.uts.Task;
+import com.example.uts.Database.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import java.util.Calendar;
 import java.util.Objects;

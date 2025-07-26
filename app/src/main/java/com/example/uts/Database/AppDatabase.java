@@ -6,10 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.uts.Task;
-import com.example.uts.TaskDao;
-import com.example.uts.User;
-import com.example.uts.UserDao;
+import com.example.uts.Adapter.UserDao;
 
 @Database(entities = {User.class, Task.class}, version = 2, exportSchema = false)
 
